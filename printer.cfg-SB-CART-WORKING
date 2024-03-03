@@ -38,14 +38,14 @@ pause_delay: 0.5
 [mcu]
 canbus_uuid:d8528f4d4569
 
-#[mcu EBBCan]
-#canbus_uuid: e2ae401d64e2
+[mcu EBBCan]
+canbus_uuid: e2ae401d64e2
 
 #[mcu FLY36]
 #canbus_uuid: 0d6578e2c513
 
-[mcu EBB36]
-canbus_uuid: f269a9a84ed7
+#[mcu EBB36]
+#canbus_uuid: f269a9a84ed7
 
 #[mcu ampon]
 #serial: /dev/serial/by-id/usb-Anchor_Ampon-if00
@@ -223,18 +223,18 @@ sense_resistor: 0.110
 stealthchop_threshold: 0
 
 [extruder]
-step_pin: EBB36: PA9
-dir_pin: !EBB36: PA8
-enable_pin: !EBB36: PA10
+step_pin: EBBCan: PD0
+dir_pin: !EBBCan: PD1
+enable_pin: !EBBCan: PD2
 microsteps: 16
-#rotation_distance: 21.9985825 ; CW2 Stock
-rotation_distance: 18.056436516 ; HextrudORT
+#rotation_distance: 22.6789511
+rotation_distance: 21.9985825
 gear_ratio: 50:10
 nozzle_diameter: 0.400
 filament_diameter: 1.750
-heater_pin: EBB36: PB1
+heater_pin: EBBCan: PB13
 sensor_type: ATC Semitec 104NT-4-R025H42G
-sensor_pin: EBB36: PA0
+sensor_pin: EBBCan: PA3
 pressure_advance: 0.021
 #control: pid
 #pid_Kp: 21.527
@@ -247,17 +247,17 @@ max_extrude_cross_section: 5
 max_extrude_only_distance: 101
 
 [tmc2209 extruder]
-uart_pin: EBB36: PA13
+uart_pin: EBBCan: PA15
 run_current: 0.3
 stealthchop_threshold: 999999
 
 [fan]
-pin: EBB36: PA1
+pin: EBBCan: PA1
 kick_start_time: 0.5
 off_below: 0.2
 
 [heater_fan hotend_fan]
-pin: EBB36: PA2
+pin: EBBCan: PA0
 max_power: 1.0
 kick_start_time: 0.5
 heater: extruder
@@ -293,6 +293,12 @@ max_temp: 100
 target_temp: 50.0
 control: watermark
 gcode_id: C
+
+[temperature_sensor EBB_NTC]
+sensor_type: Generic 3950
+sensor_pin: EBBCan: PA2
+min_temp: -40
+max_temp: 100
 
 [temperature_sensor CM4]
 sensor_type: temperature_host
@@ -373,10 +379,10 @@ algorithm: bicubic
 bicubic_tension: 0.2
 
 [adxl345]
-cs_pin: EBB36: PB12
-spi_software_sclk_pin: EBB36: PB13
-spi_software_mosi_pin: EBB36: PB15
-spi_software_miso_pin: EBB36: PB14
+cs_pin: EBBCan: PB12
+spi_software_sclk_pin: EBBCan: PB10
+spi_software_mosi_pin: EBBCan: PB11
+spi_software_miso_pin: EBBCan: PB2
 axes_map: z,-y,x
 
 #[lis2dw]
@@ -392,7 +398,7 @@ accel_chip: adxl345
 #accel_chip: lis2dw
 
 [neopixel sb_leds]
-pin: EBB36:PA3
+pin: EBBCan:PD3
 chain_count: 3
 color_order: GRBW
 initial_RED: 1.0
@@ -521,7 +527,7 @@ default_type: echo
 #*# model_temp = 46.454284
 #*# model_offset = 0.88000
 #*#
-#*# [cartographer model smooth_pla_040]
+#*# [cartographer model smooth_pla]
 #*# model_coef = 1.4276892999684252,
 #*# 	  1.8663194564177767,
 #*# 	  0.7607183058838055,
@@ -537,7 +543,7 @@ default_type: echo
 #*# model_temp = 46.454284
 #*# model_offset = 0.64000
 #*#
-#*# [cartographer model smooth_asa_040]
+#*# [cartographer model smooth_asa]
 #*# model_coef = 1.4276892999684252,
 #*# 	1.8663194564177767,
 #*# 	0.7607183058838055,
@@ -553,7 +559,7 @@ default_type: echo
 #*# model_temp = 46.454284
 #*# model_offset = 0.88000
 #*#
-#*# [cartographer model textured_040]
+#*# [cartographer model textured]
 #*# model_coef = 1.4276892999684252,
 #*# 	1.8663194564177767,
 #*# 	0.7607183058838055,
